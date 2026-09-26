@@ -7,3 +7,7 @@ body { margin: 0; font-family: Georgia, serif; background: #faf3e8; }
 .strip { width: 14px; background: linear-gradient(#c49a6c, #8b5a2b); border-radius: 2px 2px 0 0; }
 .roll-chip { display: inline-block; margin: 0.25rem; padding: 0.5rem; background: #fff; border: 1px dashed #6b4226; }
 .warn { color: #a00; }
+.compare-board { display: flex; gap: 1rem; flex-wrap: wrap; margin: 0.75rem 0; }
+.compare-side { flex: 1 1 240px; background: #fff; border: 1px solid #d9c3a5; border-radius: 4px; padding: 0.75rem; }
+.compare-side h3 { margin-top: 0; }
+.compare-delta { font-weight: bold; color: #6b4226; }

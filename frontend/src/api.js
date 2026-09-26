@@ -8,3 +8,6 @@ export async function postJSON(path, body) {
   if (!r.ok) throw new Error(await r.text())
   return r.json()
 }
+export function errText(e) {
+  try { return JSON.parse(e.message).detail ?? e.message } catch { return e.message }
+}

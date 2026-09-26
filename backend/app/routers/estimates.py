@@ -6,10 +6,19 @@ router = APIRouter()
 
 
 @router.get("/estimate")
-def estimate_get(wall_id: int = Query(...), roll_id: int = Query(...), save: bool = False):
+def estimate_get(
+    wall_id: int = Query(...),
+    roll_id: int = Query(...),
+    roll_id_b: int | None = Query(None),
+    save: bool = False,
+):
+    if roll_id_b is not None:
+        return estimate_service.run_compare(wall_id, roll_id, roll_id_b, save, "")
     return estimate_service.run_estimate(wall_id, roll_id, save, "")
 
 
 @router.post("/estimate")
 def estimate_post(body: EstimateRequest):
+    if body.roll_id_b is not None:
+        return estimate_service.run_compare(body.wall_id, body.roll_id, body.roll_id_b, body.save, body.note)
     return estimate_service.run_estimate(body.wall_id, body.roll_id, body.save, body.note)

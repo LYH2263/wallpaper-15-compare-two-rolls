@@ -20,6 +20,8 @@ def init_db():
         );
         """
     )
+    _migrate(conn)
+    conn.commit()
     if conn.execute("SELECT COUNT(*) c FROM walls").fetchone()["c"] == 0:
         conn.executemany(
             "INSERT INTO walls(name,perimeter,height,data_quality,note) VALUES (?,?,?,?,?)",
@@ -40,3 +42,9 @@ def init_db():
         conn.execute("INSERT INTO settings(key,value) VALUES ('unit','roll')")
         conn.commit()
     conn.close()
+
+
+def _migrate(conn):
+    cols = {r["name"] for r in conn.execute("PRAGMA table_info(calc_runs)").fetchall()}
+    if "roll_id_b" not in cols:
+        conn.execute("ALTER TABLE calc_runs ADD COLUMN roll_id_b INTEGER")
